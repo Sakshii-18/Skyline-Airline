@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Bookings | SkyBook</title>
+<meta name="description" content="View all your past SkyBook flight bookings in one place.">
+<meta name="author" content="SkyBook Airlines">
+<meta name="geo.placename" content="Pune, Maharashtra, India">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="loading-screen"><div class="loader-spinner"></div></div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">✈ Sky<span>Book</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="flights.html">Flights</a></li>
+      <li><a href="booking.html">Booking</a></li>
+      <li><a href="ticket.html">Ticket</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="my-bookings.html">My Bookings</a></li>
+      <li class="nav-auth" id="nav-auth"></li>
+    </ul>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Your Account</span>
+    <h1>My Bookings</h1>
+    <p>Every flight you've booked while logged in, pulled live from the database.</p>
+    <div class="breadcrumb"><a href="index.html">Home</a> / My Bookings</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div id="my-bookings-logged-out" style="display:none;text-align:center;">
+      <p style="color:var(--gray-600);margin-bottom:20px;">You need to log in to see your bookings.</p>
+      <a href="login.html" class="btn btn-primary">Log In</a>
+    </div>
+    <div id="my-bookings-empty" style="display:none;text-align:center;">
+      <p style="color:var(--gray-600);margin-bottom:20px;">You haven't booked any flights yet.</p>
+      <a href="flights.html" class="btn btn-primary">Search Flights</a>
+    </div>
+    <div id="my-bookings-error" style="display:none;text-align:center;">
+      <p style="color:var(--gray-600);">Couldn't reach the backend. Make sure the Spring Boot server is running on localhost:8080.</p>
+    </div>
+    <div id="my-bookings-list" class="bookings-grid"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-bottom">© 2026 SkyBook Airlines. All rights reserved.</div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

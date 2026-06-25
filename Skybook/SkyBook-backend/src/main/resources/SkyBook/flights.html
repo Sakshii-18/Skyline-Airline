@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flights | SkyBook — Search & Compare Flights</title>
+<meta name="description" content="Search and compare flights with SkyBook. Filter by price and stops, sort by duration, and book your seat instantly.">
+<meta name="keywords" content="flight search, compare flights, cheap flights, SkyBook flights">
+<meta name="author" content="SkyBook Airlines">
+<meta name="geo.placename" content="Pune, Maharashtra, India">
+<meta name="geo.region" content="IN-MH">
+<meta property="og:title" content="SkyBook Flights — Search & Compare">
+<meta property="og:description" content="Find the best flight for your journey with SkyBook's smart search and filters.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="loading-screen"><div class="loader-spinner"></div></div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">✈ Sky<span>Book</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="flights.html">Flights</a></li>
+      <li><a href="booking.html">Booking</a></li>
+      <li><a href="ticket.html">Ticket</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="my-bookings.html">My Bookings</a></li>
+      <li class="nav-cta"><a href="flights.html" class="btn btn-primary">Book Now</a></li>
+      <li class="nav-auth" id="nav-auth"></li>
+    </ul>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Search Results</span>
+    <h1>Available Flights</h1>
+    <p>Pune (PNQ) → Delhi (DEL) · Today · 1 Passenger</p>
+    <div class="breadcrumb"><a href="index.html">Home</a> / Flights</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <form class="search-card" id="search-form" style="margin-top:0;">
+      <div class="search-field"><label>From</label><select><option>Pune (PNQ)</option><option>Mumbai (BOM)</option></select></div>
+      <div class="search-field"><label>To</label><select><option>Delhi (DEL)</option><option>Goa (GOI)</option></select></div>
+      <div class="search-field"><label>Departure Date</label><input type="date"></div>
+      <div class="search-field"><label>Passengers</label><select><option>1 Adult</option><option>2 Adults</option></select></div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <div class="flights-layout mt-40">
+      <aside class="filter-panel reveal">
+        <h3>Filter Flights</h3>
+        <div class="filter-group">
+          <h4>Max Price</h4>
+          <input type="range" id="price-range" min="3000" max="25000" value="25000" step="500" style="width:100%;">
+          <div class="range-val" id="price-range-val">₹25,000</div>
+        </div>
+        <div class="filter-group">
+          <h4>Stops</h4>
+          <label><input type="checkbox" class="stop-filter" value="0"> Non-stop</label>
+          <label><input type="checkbox" class="stop-filter" value="1"> 1 Stop</label>
+          <label><input type="checkbox" class="stop-filter" value="2"> 2+ Stops</label>
+        </div>
+        <div class="filter-group">
+          <h4>Airlines</h4>
+          <label><input type="checkbox" checked> SkyBook Air</label>
+          <label><input type="checkbox" checked> IndoJet</label>
+          <label><input type="checkbox" checked> AeroLine</label>
+        </div>
+      </aside>
+
+      <div class="flights-results">
+        <div class="sort-bar reveal">
+          <span style="font-size:14px;color:var(--gray-600);">6 flights found</span>
+          <select id="sort-select">
+            <option value="">Sort by</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="duration">Duration</option>
+          </select>
+        </div>
+
+        <div id="flight-list">
+          <div class="flight-card reveal" data-price="4599" data-stops="0" data-duration="130">
+            <div class="airline-tag"><div class="airline-logo">SB</div><span>SkyBook Air</span></div>
+            <div class="flight-time"><h4>06:40</h4><span>Pune (PNQ)</span></div>
+            <div class="flight-path"><span>2h 10m</span><div class="line"></div><span>Non-stop</span></div>
+            <div class="flight-time"><h4>08:50</h4><span>Delhi (DEL)</span></div>
+            <div class="flight-price"><h3>₹4,599</h3><span>per passenger</span><br><a href="booking.html" class="btn btn-dark" style="margin-top:10px;">Book Now</a></div>
+          </div>
+
+          <div class="flight-card reveal" data-price="3899" data-stops="1" data-duration="240">
+            <div class="airline-tag"><div class="airline-logo">IJ</div><span>IndoJet</span></div>
+            <div class="flight-time"><h4>09:15</h4><span>Pune (PNQ)</span></div>
+            <div class="flight-path"><span>4h 00m</span><div class="line"></div><span>1 Stop</span></div>
+            <div class="flight-time"><h4>13:15</h4><span>Delhi (DEL)</span></div>
+            <div class="flight-price"><h3>₹3,899</h3><span>per passenger</span><br><a href="booking.html" class="btn btn-dark" style="margin-top:10px;">Book Now</a></div>
+          </div>
+
+          <div class="flight-card reveal" data-price="5299" data-stops="0" data-duration="125">
+            <div class="airline-tag"><div class="airline-logo">AL</div><span>AeroLine</span></div>
+            <div class="flight-time"><h4>13:50</h4><span>Pune (PNQ)</span></div>
+            <div class="flight-path"><span>2h 05m</span><div class="line"></div><span>Non-stop</span></div>
+            <div class="flight-time"><h4>15:55</h4><span>Delhi (DEL)</span></div>
+            <div class="flight-price"><h3>₹5,299</h3><span>per passenger</span><br><a href="booking.html" class="btn btn-dark" style="margin-top:10px;">Book Now</a></div>
+          </div>
+
+          <div class="flight-card reveal" data-price="6150" data-stops="0" data-duration="135">
+            <div class="airline-tag"><div class="airline-logo">SB</div><span>SkyBook Air</span></div>
+            <div class="flight-time"><h4>18:25</h4><span>Pune (PNQ)</span></div>
+            <div class="flight-path"><span>2h 15m</span><div class="line"></div><span>Non-stop</span></div>
+            <div class="flight-time"><h4>20:40</h4><span>Delhi (DEL)</span></div>
+            <div class="flight-price"><h3>₹6,150</h3><span>per passenger</span><br><a href="booking.html" class="btn btn-dark" style="margin-top:10px;">Book Now</a></div>
+          </div>
+
+          <div class="flight-card reveal" data-price="18499" data-stops="1" data-duration="320">
+            <div class="airline-tag"><div class="airline-logo">SB</div><span>SkyBook Air</span></div>
+            <div class="flight-time"><h4>22:10</h4><span>Pune (PNQ)</span></div>
+            <div class="flight-path"><span>5h 20m</span><div class="line"></div><span>1 Stop</span></div>
+            <div class="flight-time"><h4>03:30</h4><span>Dubai (DXB)</span></div>
+            <div class="flight-price"><h3>₹18,499</h3><span>per passenger</span><br><a href="booking.html" class="btn btn-dark" style="margin-top:10px;">Book Now</a></div>
+          </div>
+
+          <div class="flight-card reveal" data-price="22950" data-stops="2" data-duration="480">
+            <div class="airline-tag"><div class="airline-logo">IJ</div><span>IndoJet</span></div>
+            <div class="flight-time"><h4>04:45</h4><span>Pune (PNQ)</span></div>
+            <div class="flight-path"><span>8h 00m</span><div class="line"></div><span>2 Stops</span></div>
+            <div class="flight-time"><h4>12:45</h4><span>Singapore (SIN)</span></div>
+            <div class="flight-price"><h3>₹22,950</h3><span>per passenger</span><br><a href="booking.html" class="btn btn-dark" style="margin-top:10px;">Book Now</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <h3>✈ Sky<span>Book</span></h3>
+      <p>A premium airline reservation platform built to make every journey simple, secure and memorable.</p>
+      <form class="newsletter" id="newsletter-form">
+        <input type="email" id="newsletter-email" placeholder="Your email for fare alerts" required>
+        <button type="submit">Subscribe</button>
+      </form>
+      <div class="newsletter-msg" id="newsletter-msg">Subscribed! Watch your inbox for fare drops.</div>
+      <div class="social-row">
+        <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.41c0-2.51 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg></a>
+        <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zm9.75 1.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
+        <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.6 4.1 5.5 3 5.5S1 4.6 1 3.5 1.9 1.5 3 1.5s1.98.9 1.98 2zM1 8.98h4V22H1V8.98zM8.5 8.98h3.8v1.84h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1V22h-4v-6.1c0-1.46-.03-3.34-2.04-3.34-2.04 0-2.35 1.6-2.35 3.24V22h-4V8.98z"/></svg></a>
+        <a href="https://www.x.com" target="_blank" rel="noopener" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.6 8.7L22.6 22H16l-5.2-6.8L4.8 22H1.7l8.2-9.4L1.4 2h6.7l4.7 6.2L18.9 2zm-2.2 18h1.7L8.3 4H6.5l10.2 16z"/></svg></a>
+      </div>
+    </div>
+    <div><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="flights.html">Flights</a></li><li><a href="booking.html">Booking</a></li><li><a href="about.html">About</a></li></ul></div>
+    <div><h4>Company</h4><ul><li><a href="about.html">Our Story</a></li><li><a href="contact.html">Contact Us</a></li><li><a href="ticket.html">My Ticket</a></li><li><a href="#">Careers</a></li></ul></div>
+    <div><h4>Contact Info</h4><ul><li>📍 Pune, Maharashtra, India</li><li>📞 +91 98765 43210</li><li>✉ support@skybook.travel</li></ul></div>
+  </div>
+  <div class="footer-bottom">© 2026 SkyBook Airlines. All rights reserved.</div>
+</footer>
+
+<button id="back-to-top" aria-label="Back to top">↑</button>
+<script src="js/script.js"></script>
+</body>
+</html>
