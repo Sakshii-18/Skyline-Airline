@@ -2,10 +2,11 @@
    SkyBook — script.js
 ===================================================== */
 
-// Backend API base URL. The Spring Boot backend runs locally on port 8080.
-// If it isn't running (e.g. when viewing the site live on Netlify), every
-// API call below safely falls back to demo/local behavior.
-const API_BASE = 'http://localhost:8080/api';
+// Backend API base URL. Use the deployed server when hosted, and localhost
+// when opening the files directly during local development.
+const API_BASE = window.location.protocol === 'file:'
+  ? 'http://localhost:8080/api'
+  : `${window.location.origin}/api`;
 
 // ---------- EmailJS config ----------
 // 1. Create a free account at https://www.emailjs.com
@@ -557,7 +558,7 @@ td.label{color:#9aa8c2;text-transform:uppercase;font-size:11px;letter-spacing:.5
         .catch(err => {
           errorBox.textContent = typeof err === 'string'
             ? err
-            : 'Could not sign up. Make sure the backend server is running on localhost:8080.';
+            : 'Could not sign up. Please try again in a moment.';
           errorBox.classList.add('show');
         });
     });
@@ -592,7 +593,7 @@ td.label{color:#9aa8c2;text-transform:uppercase;font-size:11px;letter-spacing:.5
         .catch(err => {
           errorBox.textContent = typeof err === 'string'
             ? err
-            : 'Could not log in. Make sure the backend server is running on localhost:8080.';
+            : 'Could not log in. Please try again in a moment.';
           errorBox.classList.add('show');
         });
     });

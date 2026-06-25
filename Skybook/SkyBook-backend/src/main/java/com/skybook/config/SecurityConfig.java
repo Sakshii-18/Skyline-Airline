@@ -40,6 +40,13 @@ public class SecurityConfig {
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
+                    "/",
+                    "/index.html",
+                    "/*.html",
+                    "/css/**",
+                    "/js/**",
+                    "/favicon.ico",
+                    "/error",
                     "/api/auth/**",
                     "/api/flights/**",
                     "/api/contact",
