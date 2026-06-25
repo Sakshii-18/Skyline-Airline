@@ -3,6 +3,7 @@ package com.skybook.config;
 import com.skybook.security.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -47,8 +48,9 @@ public class SecurityConfig {
                 // booking creation and seat lookup stay public too,
                 // so the site still works for guests who don't log in
                 .requestMatchers("/api/bookings/seats/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/bookings").permitAll()
                 .requestMatchers("/api/bookings/my").authenticated()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions(frame -> frame.disable())) // needed for H2 console
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

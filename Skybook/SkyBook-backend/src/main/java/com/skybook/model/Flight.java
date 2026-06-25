@@ -10,8 +10,13 @@ public class Flight {
     private String id;
 
     private String airline;
+
+    @Column(name = "origin")
     private String from;
+
+    @Column(name = "destination")
     private String to;
+
     private String departureTime;
     private String arrivalTime;
     private int stops;

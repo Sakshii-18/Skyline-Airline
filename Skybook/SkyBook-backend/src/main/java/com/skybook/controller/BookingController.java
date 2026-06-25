@@ -5,10 +5,10 @@ import com.skybook.service.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -34,7 +34,7 @@ public class BookingController {
     @PostMapping
     public ResponseEntity<?> createBooking(@Valid @RequestBody Booking booking, Authentication authentication) {
         try {
-            if (authentication != null && authentication.isAuthenticated()) {
+            if (isLoggedIn(authentication)) {
                 booking.setUserEmail((String) authentication.getPrincipal());
             }
             Booking saved = bookingService.createBooking(booking);
@@ -46,8 +46,18 @@ public class BookingController {
 
     // GET /api/bookings/my -> bookings belonging to the logged-in user (requires JWT)
     @GetMapping("/my")
-    public ResponseEntity<List<Booking>> getMyBookings(Authentication authentication) {
+    public ResponseEntity<?> getMyBookings(Authentication authentication) {
+        if (!isLoggedIn(authentication)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login is required to view bookings.");
+        }
+
         String email = (String) authentication.getPrincipal();
         return ResponseEntity.ok(bookingService.getBookingsForUser(email));
+    }
+
+    private boolean isLoggedIn(Authentication authentication) {
+        return authentication != null
+                && authentication.isAuthenticated()
+                && !(authentication instanceof AnonymousAuthenticationToken);
     }
 }

@@ -1,6 +1,8 @@
 package com.skybook.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -18,9 +20,11 @@ public class Booking {
     @NotBlank(message = "Passenger name is required")
     private String passengerName;
 
+    @NotBlank(message = "Email is required")
     @Email(message = "Enter a valid email address")
     private String email;
 
+    @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "^[0-9]{10}$", message = "Enter a valid 10-digit phone number")
     private String phone;
 
@@ -42,12 +46,31 @@ public class Booking {
     public List<String> getSeats() {
         if (seatsCsv == null || seatsCsv.isBlank()) return new ArrayList<>();
         List<String> list = new ArrayList<>();
-        for (String s : seatsCsv.split(",")) list.add(s.trim());
+        for (String s : seatsCsv.split(",")) {
+            if (!s.isBlank()) list.add(s.trim());
+        }
         return list;
     }
 
     public void setSeats(List<String> seats) {
-        this.seatsCsv = seats == null ? "" : String.join(",", seats);
+        if (seats == null) {
+            this.seatsCsv = "";
+            return;
+        }
+
+        List<String> cleanedSeats = new ArrayList<>();
+        for (String seat : seats) {
+            if (seat != null && !seat.isBlank()) {
+                cleanedSeats.add(seat.trim());
+            }
+        }
+        this.seatsCsv = String.join(",", cleanedSeats);
+    }
+
+    @AssertTrue(message = "Select at least one seat")
+    @JsonIgnore
+    public boolean isSeatSelectionValid() {
+        return !getSeats().isEmpty();
     }
 
     public String getId() { return id; }
